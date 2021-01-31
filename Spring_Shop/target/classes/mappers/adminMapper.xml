@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.mappers.adminMapper">
+
+
+	<!-- 카테고리 호출 -->
+	<select id="category" resultType="com.spring.model.CategoryVO">
+		select
+		cateName, cateCode,
+		cateCodeRef
+		from goods_category
+	</select>
+	<!-- 상품 등록 -->
+	<insert id="register">
+		insert into tbl_goods
+		(gdsName, cateCode, gdsPrice,
+		gdsStock, gdsDes, gdsImg, gdsThumbImg)
+		values
+		(#{gdsName}, #{cateCode},
+		#{gdsPrice},
+		#{gdsStock}, #{gdsDes}, #{gdsImg}, #{gdsThumbImg})
+	</insert>
+
+	<!-- 상품 목록 -->
+	<select id="goodslist" resultType="com.spring.model.GoodsViewVO">
+		select t.gdsNum, t.gdsName,
+		t.cateCode, t.gdsPrice, t.gdsStock, t.gdsDes, t.gdsImg, t.gdsDate,
+		g.cateCodeRef, g.cateName, t.gdsImg, t.gdsThumbImg from tbl_goods t
+		join goods_category g on
+		t.cateCode = g.cateCode
+	</select>
+	<!-- 상품 목록 페이징 -->
+	<select id="listpage" resultType="com.spring.model.GoodsViewVO"
+		parameterType="com.spring.model.Criteria">
+		select t.gdsNum, t.gdsName,
+		t.cateCode, t.gdsPrice,
+		t.gdsStock, t.gdsDes, t.gdsImg, t.gdsDate,
+		g.cateCodeRef, g.cateName,
+		t.gdsImg, t.gdsThumbImg from tbl_goods t join goods_category g on
+		t.cateCode = g.cateCode where t.gdsNum between #{rowStart} and
+		#{rowEnd} order by t.gdsNum desc
+	</select>
+	<!-- 상품 count -->
+	<select id="listCount" resultType="int">
+		select count(gdsNum) from
+		tbl_goods where gdsNum > 0
+	</select>
+	<!-- 상품 조회 + 카테고리 조인 -->
+	<select id="goodsView" resultType="com.spring.model.GoodsViewVO">
+		select t.gdsNum, t.gdsName,
+		t.cateCode, t.gdsPrice, t.gdsStock, t.gdsDes, t.gdsImg, t.gdsDate,
+		g.cateCodeRef, g.cateName, t.gdsImg, t.gdsThumbImg from tbl_goods t
+		join goods_category g on
+		t.cateCode = g.cateCode
+		where t.gdsNum =
+		#{gdsNum}
+
+	</select>
+	<!-- 상품 수정 -->
+	<update id="goodsModify">
+		update tbl_goods set gdsName = #{gdsName}, cateCode =
+		#{cateCode}, gdsPrice = #{gdsPrice}, gdsStock = #{gdsStock}, gdsDes =
+		#{gdsDes}, gdsImg = #{gdsImg}, gdsThumbImg = #{gdsThumbImg} where
+		gdsNum = #{gdsNum}
+	</update>
+
+	<!-- 상품 삭제 -->
+	<delete id="goodsDelete">
+		delete from tbl_goods where gdsNum = #{gdsNum}
+	</delete>
+	<!-- 모든 유저의 주문 목록 -->
+	<select id="orderList" resultType="com.spring.model.OrderVO">
+		select orderId, userId,
+		orderRec, userAddr1, userAddr2, userAddr3,
+		orderPhon, amount,
+		orderDate, delivery
+		from tbl_order where delivery = #{delivery}
+	</select>
+
+	<!-- 특정 주문 목록 -->
+	<select id="orderView" resultType="com.spring.model.OrderListVO">
+		select o.orderId, o.userId,
+		o.orderRec, o.userAddr1, o.userAddr2,
+		o.userAddr3, o.orderPhon,
+		o.amount, o.orderDate, o.delivery,
+		d.orderDetailsNum, d.gdsNum,
+		d.cartStock,
+		g.gdsName, g.gdsThumbImg,
+		g.gdsPrice
+		from tbl_order o join
+		tbl_order_details d on o.orderId = d.orderId join
+		tbl_goods g on
+		d.gdsNum = g.gdsNum
+		where o.orderId = #{orderId}
+	</select>
+	<!-- 배송 상태 -->
+	<update id="delivery">
+		update tbl_order set delivery = #{delivery} where
+		orderId = #{orderId}
+	</update>
+	<!-- 상품 수량 조절 -->
+	<update id="changeStock">
+		update tbl_goods set gdsStock = gdsStock -
+		#{gdsStock} where gdsNum = #{gdsNum}
+	</update>
+	<!--  모든 소감(댓글) -->
+	<select id="allReply" resultType="com.spring.model.ReplyListVO">
+		select r.gdsNum, r.userId,
+		r.repNum, r.repCon, r.repDate, m.userName
+		from tbl_reply r join
+		tbl_member m on r.userId = m.userId
+	</select>
+
+	<!-- 소감(댓글) 지우기 -->
+	<delete id="deleteReply">
+		delete from tbl_reply where repNum = #{repNum}
+	</delete>
+</mapper>

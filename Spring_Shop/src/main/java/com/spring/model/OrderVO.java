@@ -11,10 +11,9 @@ public class OrderVO {
 	private String userAddr3;
 	private String orderPhon;
 	private int amount;
-	private Timestamp orderDate;
+	private String orderDate;
 	private String delivery;
-	
-	
+
 	public String getDelivery() {
 		return delivery;
 	}
@@ -69,10 +68,10 @@ public class OrderVO {
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
-	public Timestamp getOrderDate() {
+	public String getOrderDate() {
 		return orderDate;
 	}
-	public void setOrderDate(Timestamp orderDate) {
+	public void setOrderDate(String orderDate) {
 		this.orderDate = orderDate;
 	}
 	

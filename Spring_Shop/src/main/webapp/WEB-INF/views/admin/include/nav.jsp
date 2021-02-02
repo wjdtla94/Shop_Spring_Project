@@ -71,13 +71,13 @@
                                 </div>
                                 <div class="card">
                                     <div class="card-heading">
-                                        <a data-toggle="collapse" data-target="#collapseTwo">유저 관리</a>
+                                        <a data-toggle="collapse" data-target="#collapseTwo">매출 관리</a>
                                     </div>
                                     <div id="collapseTwo" class="collapse show" data-parent="#accordionExample">
                                         <div class="card-body">
                                             <div class="shop__sidebar__brand">
                                                 <ul>
-                                                    <li><a href="#">유저목록</a></li>
+                                                    <li><a href="/admin/shop/sales">매출 현황</a></li>
                                                 </ul>
                                             </div>
                                         </div>

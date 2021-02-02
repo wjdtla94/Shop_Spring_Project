@@ -6,6 +6,7 @@ import com.spring.model.CategoryVO;
 import com.spring.model.Criteria;
 import com.spring.model.GoodsVO;
 import com.spring.model.GoodsViewVO;
+import com.spring.model.OrderDetailVO;
 import com.spring.model.OrderListVO;
 import com.spring.model.OrderVO;
 import com.spring.model.ReplyListVO;
@@ -48,5 +49,9 @@ public interface AdminService {
 	public List<ReplyListVO> allReply() throws Exception;
 	//리뷰 삭제
 	public void deleteReply(int repNum) throws Exception;
+	//매출현황
+	public List<OrderVO> sales() throws Exception;
+	//상품별 매출 현황
+	public List<OrderDetailVO> goods() throws Exception;
 
 }

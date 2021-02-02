@@ -173,7 +173,6 @@ public class ShopController {
 	 
 	 MemberVO member = (MemberVO)session.getAttribute("member");  
 	 String userId = member.getUserId();
-	 
 	 Calendar cal = Calendar.getInstance();
 	 int year = cal.get(Calendar.YEAR);
 	 String ym = year + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
@@ -231,7 +230,6 @@ public class ShopController {
 	public List<MemberVO> address(HttpSession session, Model model) throws Exception {
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		String userId = member.getUserId();
-	 System.out.print(userId);
 	 List<MemberVO> user = shopService.memberInfo(userId);
 	 
 	 return user;  

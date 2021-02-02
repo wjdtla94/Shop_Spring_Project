@@ -5,6 +5,24 @@ public class OrderDetailVO {
 	private String orderId;
 	private int gdsNum;
 	private int cartStock;
+	private String gdsName;
+	private int count;
+	
+	
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
+	
+	
+	public String getGdsName() {
+		return gdsName;
+	}
+	public void setGdsName(String gdsName) {
+		this.gdsName = gdsName;
+	}
 	public int getOrderDetailsNum() {
 		return orderDetailsNum;
 	}

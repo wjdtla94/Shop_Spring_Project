@@ -89,8 +89,8 @@ insert into tbl_order (orderId, userId, orderRec, userAddr1, userAddr2, userAddr
 </insert>
 <!-- 주문 상세 정보 --> 
 <insert id="orderInfo_Details">
- insert into tbl_order_details( orderId, gdsNum, cartStock)
-     select  #{orderId}, gdsNum, cartStock
+ insert into tbl_order_details( orderId, gdsNum, cartStock, gdsName)
+     select  #{orderId}, gdsNum, cartStock , #{gdsName}
          from tbl_cart   
 </insert> 
 <!-- 카트 비우기 -->

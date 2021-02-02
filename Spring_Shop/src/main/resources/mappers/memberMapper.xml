@@ -28,7 +28,7 @@
 		userId, userName, userPass, userEmail, userPostcode, userAddress,
 		userDetailad, regiDate, verify
 		from tbl_member
-		where userId= #{userId}
+		where userId= #{userId} and userPass = #{userPass}
 	</select>
 	
 	<!-- 우편검색 -->

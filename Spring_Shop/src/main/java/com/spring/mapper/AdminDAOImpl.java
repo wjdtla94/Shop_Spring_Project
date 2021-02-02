@@ -11,6 +11,7 @@ import com.spring.model.CategoryVO;
 import com.spring.model.Criteria;
 import com.spring.model.GoodsVO;
 import com.spring.model.GoodsViewVO;
+import com.spring.model.OrderDetailVO;
 import com.spring.model.OrderListVO;
 import com.spring.model.OrderVO;
 import com.spring.model.ReplyListVO;
@@ -101,6 +102,16 @@ public class AdminDAOImpl implements AdminDAO{
 	public void deleteReply(int repNum) throws Exception {
 		// TODO Auto-generated method stub
 		sqlsession.delete(namespace + ".deleteReply", repNum);
+	}
+	@Override
+	public List<OrderVO> sales() throws Exception {
+		// TODO Auto-generated method stub
+		return sqlsession.selectList(namespace + ".sales");
+	}
+	@Override
+	public List<OrderDetailVO> goods() throws Exception {
+		// TODO Auto-generated method stub
+		return sqlsession.selectList(namespace + ".goods");
 	}
 
 }

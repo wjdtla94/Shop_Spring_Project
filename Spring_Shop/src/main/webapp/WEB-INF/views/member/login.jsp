@@ -36,9 +36,6 @@
             <form class="form-signin" name="frm" method="post">
                 <input type="text" name="userId" id="userId" class="form-control" placeholder="id" >
                 <input type="password" name="userPass" id="userPass" class="form-control" placeholder="Password" >
-                <div id="remember" class="checkbox">
-                 
-                </div>
                  <c:if test="${msg == false}">
                 <p style="color:#f00;">로그인에 실패했습니다.</p>
 <!--                 <script type="text/javascript">

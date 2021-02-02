@@ -330,7 +330,9 @@ section#content div.gdsInfo .delete button {
 						</div>
 						<div class="orderInfo">
 							<form role="form" method="post" autocomplete="off">
-
+								<c:forEach items="${cartList}" var="cartList">
+								<input type="hidden" name="gdsName" value="${cartList.gdsName}" />
+								</c:forEach>
 								<input type="hidden" name="amount" value="${sum}" />
 								
 								<div class="inputArea">

@@ -6,113 +6,137 @@
 		t.cateCode, t.gdsPrice, t.gdsStock, t.gdsDes,
 		t.gdsImg, t.gdsDate,
 		g.cateCodeRef, g.cateName, t.gdsImg, t.gdsThumbImg
-		from tbl_goods t join goods_category g on
+		from tbl_goods t
+		join goods_category g on
 		t.cateCode = g.cateCode
-		where g.cateCode = #{cateCode}
+		where g.cateCode =
+		#{cateCode}
 	</select>
-	
-	<select id="level_list" resultType="com.spring.model.GoodsViewVO">
+
+	<select id="level_list"
+		resultType="com.spring.model.GoodsViewVO">
 		select t.gdsNum, t.gdsName,
-		t.cateCode, t.gdsPrice, t.gdsStock, t.gdsDes,
+		t.cateCode, t.gdsPrice,
+		t.gdsStock, t.gdsDes,
 		t.gdsImg, t.gdsDate,
-		g.cateCodeRef, g.cateName, t.gdsImg, t.gdsThumbImg
+		g.cateCodeRef, g.cateName,
+		t.gdsImg, t.gdsThumbImg
 		from tbl_goods t join goods_category g on
 		t.cateCode = g.cateCode
 		where g.cateCodeRef = #{cateCode}
 	</select>
 	<!-- 상품 소감(댓글) 작성 -->
 	<insert id="registReply">
-		insert into tbl_reply (gdsNum, userId, repCon) values (#{gdsNum}, #{userId}, #{repCon})
+		insert into tbl_reply (gdsNum, userId, repCon) values
+		(#{gdsNum}, #{userId}, #{repCon})
 	</insert>
-	
+
 
 	<select id="all_list" resultType="com.spring.model.GoodsViewVO">
 		select t.gdsNum, t.gdsName,
 		t.cateCode, t.gdsPrice, t.gdsStock, t.gdsDes,
 		t.gdsImg, t.gdsDate,
 		g.cateCodeRef, g.cateName, t.gdsImg, t.gdsThumbImg
-		from tbl_goods t join goods_category g on
+		from tbl_goods t
+		join goods_category g on
 		t.cateCode = g.cateCode
 	</select>
 
 	<!-- 상품 소감(댓글) 리스트 -->
 	<select id="replyList" resultType="com.spring.model.ReplyListVO">
-		select r.gdsNum, r.userId, r.repNum, r.repCon, r.repDate, m.userName
-		from tbl_reply r join tbl_member m on r.userId = m.userId
+		select r.gdsNum, r.userId,
+		r.repNum, r.repCon, r.repDate, m.userName
+		from tbl_reply r join
+		tbl_member m on r.userId = m.userId
 		where r.gdsNum = #{gdsNum}
 	</select>
-	
-		<!-- 상품 조회 + 카테고리 조인 -->
+
+	<!-- 상품 조회 + 카테고리 조인 -->
 	<select id="goodsView" resultType="com.spring.model.GoodsViewVO">
 		select t.gdsNum, t.gdsName,
 		t.cateCode, t.gdsPrice, t.gdsStock, t.gdsDes, t.gdsImg, t.gdsDate,
-		g.cateCodeRef, g.cateName, t.gdsImg, t.gdsThumbImg from tbl_goods t join goods_category g on
+		g.cateCodeRef, g.cateName, t.gdsImg, t.gdsThumbImg from tbl_goods t
+		join goods_category g on
 		t.cateCode = g.cateCode
-		where t.gdsNum = #{gdsNum}
+		where t.gdsNum =
+		#{gdsNum}
 
 	</select>
 	<!-- 상품 소감(댓글) 삭제 -->
 	<delete id="deleteReply">
-		delete from tbl_reply where repNum = #{repNum} and userId = #{userId}
+		delete from tbl_reply where repNum = #{repNum} and
+		userId = #{userId}
 	</delete>
 
 	<!-- 아이디 체크 -->
 	<select id="replyUserIdCheck" resultType="String">
-		select userId from tbl_reply where repNum = #{repNum}
+		select userId from
+		tbl_reply where repNum = #{repNum}
 	</select>
 	<!-- 상품 소감(댓글) 수정 -->
 	<update id="modifyReply">
-	update tbl_reply set repCon = #{repCon} where repNum = #{repNum} and userId = #{userId}
-</update>
+		update tbl_reply set repCon = #{repCon} where repNum = #{repNum} and userId
+		= #{userId}
+	</update>
 
-<!-- 카트 담기 -->
-<insert id="addCart">
- insert into tbl_cart (userId, gdsNum, cartStock) values (#{userId}, #{gdsNum}, #{cartStock})
-</insert>
+	<!-- 카트 담기 -->
+	<insert id="addCart">
+		insert into tbl_cart (userId, gdsNum, cartStock) values (#{userId},
+		#{gdsNum}, #{cartStock})
+	</insert>
 
-<!-- 카트 리스트 -->
-<select id="cartList" resultType="com.spring.model.CartListVO">
-	select c.cartNum, c.userId, c.gdsNum, c.cartStock, c.addDate, g.gdsName,
-	g.gdsPrice, g.gdsThumbImg
-	from tbl_cart c join tbl_goods g on c.gdsNum = g.gdsNum
-	where c.userId = #{userId}
-</select>
-	
+	<!-- 카트 리스트 -->
+	<select id="cartList" resultType="com.spring.model.CartListVO">
+		select c.cartNum, c.userId, c.gdsNum, c.cartStock, c.addDate, g.gdsName,
+		g.gdsPrice, g.gdsThumbImg
+		from tbl_cart c join tbl_goods g on c.gdsNum = g.gdsNum
+		where c.userId = #{userId}
+	</select>
+
 	<!-- 카트 삭제 -->
-<delete id="deleteCart">
- delete from tbl_cart where cartNum = #{cartNum} and userId = #{userId}
-</delete>
+	<delete id="deleteCart">
+		delete from tbl_cart where cartNum = #{cartNum} and userId = #{userId}
+	</delete>
 
-<!-- 주문 정보 -->
-<insert id="orderInfo">
-insert into tbl_order (orderId, userId, orderRec, userAddr1, userAddr2, userAddr3, orderPhon, amount) values (#{orderId}, #{userId}, #{orderRec}, #{userAddr1}, #{userAddr2}, #{userAddr3}, #{orderPhon}, #{amount})
-</insert>
-<!-- 주문 상세 정보 --> 
-<insert id="orderInfo_Details">
- insert into tbl_order_details( orderId, gdsNum, cartStock, gdsName)
-     select  #{orderId}, gdsNum, cartStock , #{gdsName}
-         from tbl_cart   
-</insert> 
-<!-- 카트 비우기 -->
-<delete id="cartAllDelete">
- delete from tbl_cart where userId = #{userId}
-</delete>
-<!-- 특정 유저의 주문 목록 -->
-<select id="orderList" resultType="com.spring.model.OrderVO">
-select orderId, userId, orderRec, userAddr1, userAddr2, userAddr3, orderPhon, amount, orderDate, delivery from tbl_order where userId = #{userId}
-</select>
-<!-- 특정 주문 목록 -->
-<select id="orderView" resultType="com.spring.model.OrderListVO">
-select o.orderId, o.userId, o.orderRec, o.userAddr1, o.userAddr2, o.userAddr3, o.orderPhon, o.amount, o.orderDate, o.delivery,
-d.orderDetailsNum, d.gdsNum, d.cartStock,
-g.gdsName, g.gdsThumbImg, g.gdsPrice
-from tbl_order o join tbl_order_details d on o.orderId = d.orderId join tbl_goods g on d.gdsNum = g.gdsNum
-where o.userId = #{userId} and o.orderId = #{orderId}
-</select>
+	<!-- 주문 정보 -->
+	<insert id="orderInfo">
+		insert into tbl_order (orderId, userId, orderRec, userAddr1, userAddr2,
+		userAddr3, orderPhon, amount) values (#{orderId}, #{userId},
+		#{orderRec}, #{userAddr1}, #{userAddr2}, #{userAddr3}, #{orderPhon},
+		#{amount})
+	</insert>
+	<!-- 주문 상세 정보 -->
+	<insert id="orderInfo_Details">
+		insert into tbl_order_details( orderId, gdsNum, cartStock, gdsName)
+		select #{orderId}, gdsNum, cartStock , #{gdsName}
+		from tbl_cart
+	</insert>
+	<!-- 카트 비우기 -->
+	<delete id="cartAllDelete">
+		delete from tbl_cart where userId = #{userId}
+	</delete>
+	<!-- 특정 유저의 주문 목록 -->
+	<select id="orderList" resultType="com.spring.model.OrderVO">
+		select orderId, userId, orderRec, userAddr1, userAddr2, userAddr3,
+		orderPhon, amount, orderDate, delivery from tbl_order where userId =
+		#{userId}
+	</select>
+	<!-- 특정 주문 목록 -->
+	<select id="orderView" resultType="com.spring.model.OrderListVO">
+		select o.orderId, o.userId, o.orderRec, o.userAddr1, o.userAddr2,
+		o.userAddr3, o.orderPhon, o.amount, o.orderDate, o.delivery,
+		d.orderDetailsNum, d.gdsNum, d.cartStock,
+		g.gdsName, g.gdsThumbImg, g.gdsPrice
+		from tbl_order o join tbl_order_details d on o.orderId = d.orderId join
+		tbl_goods g on d.gdsNum = g.gdsNum
+		where o.userId = #{userId} and o.orderId = #{orderId}
+	</select>
 	<select id="memberInfo" resultType="com.spring.model.MemberVO">
 		select
-		userId, userName, userPass, userEmail, userPostcode, userAddress,
-		userDetailad, regiDate, verify
+		userId, userName,
+		userPass, userEmail, userPostcode, userAddress,
+		userDetailad, regiDate,
+		verify
 		from tbl_member
 		where userId= #{userId}
 	</select>

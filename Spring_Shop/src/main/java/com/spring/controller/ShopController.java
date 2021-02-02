@@ -72,143 +72,153 @@ public class ShopController {
 	@ResponseBody
 	@RequestMapping(value = "/view/registReply", method = RequestMethod.POST)
 	public void registReply(ReplyVO reply, HttpSession session) throws Exception {
-	 MemberVO member = (MemberVO)session.getAttribute("member");
-	 reply.setUserId(member.getUserId());
-	 
-	 shopService.registReply(reply);
-	} 
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		reply.setUserId(member.getUserId());
+
+		shopService.registReply(reply);
+	}
+
 	// 상품 소감(댓글) 목록
 	@ResponseBody
 	@RequestMapping(value = "/view/replyList", method = RequestMethod.GET)
 	public List<ReplyListVO> getReplyList(@RequestParam("n") int gdsNum) throws Exception {
-	   
-	 List<ReplyListVO> reply = shopService.replyList(gdsNum);
-	 
-	 return reply;
+
+		List<ReplyListVO> reply = shopService.replyList(gdsNum);
+
+		return reply;
 	}
+
 	// 상품 소감(댓글) 삭제
 	@ResponseBody
 	@RequestMapping(value = "/view/deleteReply", method = RequestMethod.POST)
 	public int getReplyList(ReplyVO reply, HttpSession session) throws Exception {
-	 int result = 0;
-	 MemberVO member = (MemberVO)session.getAttribute("member");
-	 String userId = shopService.idCheck(reply.getRepNum());
-	   
-	 if(member.getUserId().equals(userId)) {
-	  reply.setUserId(member.getUserId());
-	  shopService.deleteReply(reply);
-	  result = 1;
-	 }
-	 
-	 return result; 
+		int result = 0;
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		String userId = shopService.idCheck(reply.getRepNum());
+
+		if (member.getUserId().equals(userId)) {
+			reply.setUserId(member.getUserId());
+			shopService.deleteReply(reply);
+			result = 1;
+		}
+
+		return result;
 	}
+
 	// 상품 소감(댓글) 수정
 	@ResponseBody
 	@RequestMapping(value = "/view/modifyReply", method = RequestMethod.POST)
 	public int modifyReply(ReplyVO reply, HttpSession session) throws Exception {
-	 int result = 0;
-	 MemberVO member = (MemberVO)session.getAttribute("member");
-	 String userId = shopService.idCheck(reply.getRepNum());
-	 
-	 if(member.getUserId().equals(userId)) {
-	  reply.setUserId(member.getUserId());
-	  shopService.modifyReply(reply);
-	  result = 1;
-	 }
-	 
-	 return result;
+		int result = 0;
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		String userId = shopService.idCheck(reply.getRepNum());
+
+		if (member.getUserId().equals(userId)) {
+			reply.setUserId(member.getUserId());
+			shopService.modifyReply(reply);
+			result = 1;
+		}
+
+		return result;
 	}
+
 	// 카트 담기
 	@ResponseBody
 	@RequestMapping(value = "/view/addCart", method = RequestMethod.POST)
 	public int addCart(CartVO cart, HttpSession session) throws Exception {
-	 int result = 0;
-	 MemberVO member = (MemberVO)session.getAttribute("member");
-	 if(member != null) {
-	  cart.setUserId(member.getUserId());
-	  shopService.addCart(cart);
-	   cart = null;
-	  result = 1;
-	 }
-	 
-	 return result;
+		int result = 0;
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		if (member != null) {
+			cart.setUserId(member.getUserId());
+			shopService.addCart(cart);
+			cart = null;
+			result = 1;
+		}
+
+		return result;
 	}
+
 	// 카트 목록
 	@RequestMapping(value = "/cartList", method = RequestMethod.GET)
 	public void getCartList(HttpSession session, Model model) throws Exception {
-	 
-	 MemberVO member = (MemberVO)session.getAttribute("member");
-	 String userId = member.getUserId();
-	 
-	 List<CartListVO> cartList = shopService.cartList(userId);
-	 
-	 model.addAttribute("cartList", cartList);
-	 
+
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		String userId = member.getUserId();
+
+		List<CartListVO> cartList = shopService.cartList(userId);
+
+		model.addAttribute("cartList", cartList);
+
 	}
+
 	// 카트 삭제
 	@ResponseBody
 	@RequestMapping(value = "/deleteCart", method = RequestMethod.POST)
-	public int deleteCart(HttpSession session, @RequestParam(value = "chbox[]") List<String> chArr, CartVO cart) throws Exception {
-	 
-	 MemberVO member = (MemberVO)session.getAttribute("member");
-	 String userId = member.getUserId();
-	 
-	 int result = 0;
-	 int cartNum = 0;
-	 
-	 if(member != null) {
-	  cart.setUserId(userId);
-	  for(String i : chArr) {   
-	   cartNum = Integer.parseInt(i);
-	   cart.setCartNum(cartNum);
-	   shopService.deleteCart(cart);
-	  }   
-	  result = 1;
-	 }  
-	 return result;  
+	public int deleteCart(HttpSession session, @RequestParam(value = "chbox[]") List<String> chArr, CartVO cart)
+			throws Exception {
+
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		String userId = member.getUserId();
+
+		int result = 0;
+		int cartNum = 0;
+
+		if (member != null) {
+			cart.setUserId(userId);
+			for (String i : chArr) {
+				cartNum = Integer.parseInt(i);
+				cart.setCartNum(cartNum);
+				shopService.deleteCart(cart);
+			}
+			result = 1;
+		}
+		return result;
 	}
+
 	// 주문
 	@RequestMapping(value = "/cartList", method = RequestMethod.POST)
 	public String order(HttpSession session, OrderVO order, OrderDetailVO orderDetail) throws Exception {
-	 
-	 MemberVO member = (MemberVO)session.getAttribute("member");  
-	 String userId = member.getUserId();
-	 Calendar cal = Calendar.getInstance();
-	 int year = cal.get(Calendar.YEAR);
-	 String ym = year + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
-	 String ymd = ym + new DecimalFormat("00").format(cal.get(Calendar.DATE));
-	 String subNum = "";
-	 
-	 for(int i = 1; i <= 6; i ++) {
-	  subNum += (int)(Math.random() * 10);
-	 }
-	 
-	 String orderId = ymd + "_" + subNum;
-	 
-	 order.setOrderId(orderId);
-	 order.setUserId(userId);
-	  
-	 shopService.orderInfo(order);
-	 
-	 orderDetail.setOrderId(orderId);   
-	 shopService.orderInfo_Details(orderDetail);
-	 
-	 shopService.cartAllDelete(userId);
-	 order = null;
-	 return "redirect:/shop/orderList";  
+
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		String userId = member.getUserId();
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR);
+		String ym = year + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
+		String ymd = ym + new DecimalFormat("00").format(cal.get(Calendar.DATE));
+		String subNum = "";
+
+		for (int i = 1; i <= 6; i++) {
+			subNum += (int) (Math.random() * 10);
+		}
+
+		String orderId = ymd + "_" + subNum;
+
+		order.setOrderId(orderId);
+		order.setUserId(userId);
+
+		shopService.orderInfo(order);
+
+		orderDetail.setOrderId(orderId);
+		shopService.orderInfo_Details(orderDetail);
+
+		shopService.cartAllDelete(userId);
+		order = null;
+		return "redirect:/shop/orderList";
 	}
+
 	// 주문 목록
 	@RequestMapping(value = "/orderList", method = RequestMethod.GET)
 	public void getOrderList(HttpSession session, OrderVO order, Model model) throws Exception {
-	 
-	 MemberVO member = (MemberVO)session.getAttribute("member");
-	 String userId = member.getUserId();
-	 
-	 order.setUserId(userId);
-	 List<OrderVO> orderList = shopService.orderList(order);
-	 
-	 model.addAttribute("orderList", orderList);
+
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		String userId = member.getUserId();
+
+		order.setUserId(userId);
+		List<OrderVO> orderList = shopService.orderList(order);
+
+		model.addAttribute("orderList", orderList);
 	}
+
 	// 주문 상세 목록
 	@RequestMapping(value = "/orderView", method = RequestMethod.GET)
 	public void getOrderList(HttpSession session, @RequestParam("n") String orderId, OrderVO order, Model model)
@@ -224,15 +234,16 @@ public class ShopController {
 
 		model.addAttribute("orderView", orderView);
 	}
-	//주소 가져오기
+
+	// 주소 가져오기
 	@ResponseBody
 	@RequestMapping(value = "/address", method = RequestMethod.GET)
 	public List<MemberVO> address(HttpSession session, Model model) throws Exception {
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		String userId = member.getUserId();
-	 List<MemberVO> user = shopService.memberInfo(userId);
-	 
-	 return user;  
+		List<MemberVO> user = shopService.memberInfo(userId);
+
+		return user;
 	}
-	
+
 }

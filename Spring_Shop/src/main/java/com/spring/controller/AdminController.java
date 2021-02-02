@@ -90,14 +90,6 @@ public class AdminController {
 
 		return "redirect:/admin/goods/list";
 	}
-
-//	// 상품목록 페이지 GET
-//	@RequestMapping(value = "/goods/list", method = RequestMethod.GET)
-//	public void getList(Model model, GoodsViewVO vo) throws Exception {
-//		List<GoodsViewVO> list = adminService.goodslist();
-//		model.addAttribute("list", list);
-//
-//	}
 	// 상품목록 + 페이징
 	@RequestMapping(value = "/goods/list", method = RequestMethod.GET)
 	public void listPage(Model model, @ModelAttribute("cri") Criteria cri) throws Exception {
@@ -285,18 +277,20 @@ public class AdminController {
 
 	// 매출현황
 	@ResponseBody
-		@RequestMapping(value = "/shop/salesList", method = RequestMethod.GET)
-		public List<OrderVO> sales(Model model) throws Exception {
-			List<OrderVO> sales = adminService.sales();
-			return sales;
-		}
+	@RequestMapping(value = "/shop/salesList", method = RequestMethod.GET)
+	public List<OrderVO> sales(Model model) throws Exception {
+		List<OrderVO> sales = adminService.sales();
+		return sales;
+	}
+
 	// 상품별 매출현황
-		@ResponseBody
-			@RequestMapping(value = "/shop/goodsList", method = RequestMethod.GET)
-			public List<OrderDetailVO> goods(Model model) throws Exception {
-				List<OrderDetailVO> goods = adminService.goods();
-				return goods;
-			}
+	@ResponseBody
+	@RequestMapping(value = "/shop/goodsList", method = RequestMethod.GET)
+	public List<OrderDetailVO> goods(Model model) throws Exception {
+		List<OrderDetailVO> goods = adminService.goods();
+		return goods;
+	}
+	//매출관리페이지
 	@RequestMapping(value = "/shop/sales", method = RequestMethod.GET)
 	public void getSales() throws Exception {
 	}

@@ -99,7 +99,7 @@
 				fillColor : "rbga(151,187,205,0.2)",
 
 				strokeColor : "rbga(151,187,205,1)",
-
+				
 				pointColor : "rbga(151,187,205,1)",
 
 				pointStrokeColor : "#fff",
@@ -178,7 +178,6 @@
 				label : "판매수",
 
 				fillColor : "rbga(151,187,205,0.2)",
-
 				strokeColor : "rbga(151,187,205,1)",
 
 				pointColor : "rbga(151,187,205,1)",
@@ -202,17 +201,19 @@
 			var ctx = document.getElementById("canvas").getContext("2d");
 
 			var myChart = new Chart(ctx, {
-				type : 'bar',
+				type : 'horizontalBar',
 				data : lineChartData,
 
 				options : {
 
 					scales : {
 
-						yAxes : [ {
+						xAxes : [ {
 
 							ticks : {
-								beginAtZero : true
+								
+								beginAtZero: true
+
 
 							}
 

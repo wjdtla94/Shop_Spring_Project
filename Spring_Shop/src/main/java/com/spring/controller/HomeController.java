@@ -27,7 +27,7 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-
+	//메인페이지
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public void getIndex() {
 		

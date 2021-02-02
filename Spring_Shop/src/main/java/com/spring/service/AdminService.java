@@ -41,17 +41,23 @@ public interface AdminService {
 
 	// 특정 주문 목록 (3개 테이블 join)
 	public List<OrderListVO> orderView(OrderVO order) throws Exception;
-	//배송 상태
+
+	// 배송 상태
 	public void delivery(OrderVO order) throws Exception;
-	//상품 수량 조정
+
+	// 상품 수량 조정
 	public void changeStock(GoodsVO goods) throws Exception;
-	//리뷰 목록
+
+	// 리뷰 목록
 	public List<ReplyListVO> allReply() throws Exception;
-	//리뷰 삭제
+
+	// 리뷰 삭제
 	public void deleteReply(int repNum) throws Exception;
-	//매출현황
+
+	// 매출현황
 	public List<OrderVO> sales() throws Exception;
-	//상품별 매출 현황
+
+	// 상품별 매출 현황
 	public List<OrderDetailVO> goods() throws Exception;
 
 }

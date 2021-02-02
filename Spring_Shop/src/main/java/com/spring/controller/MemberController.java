@@ -25,7 +25,7 @@ import com.spring.service.MemberService;
 public class MemberController {
 	@Inject
 	MemberService memberService;
-	
+
 	// 로그인 get
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public void getLogin() throws Exception {
@@ -42,7 +42,6 @@ public class MemberController {
 
 		MemberVO login = memberService.login(vo);
 		HttpSession session = req.getSession();
-		
 
 		if (login != null) {
 			session.setAttribute("member", login);
@@ -98,14 +97,15 @@ public class MemberController {
 
 		return "/member/login";
 	}
-	//중복체크
+
+	// 중복체크
 	@ResponseBody
 	@RequestMapping(value = "/idCheck", method = RequestMethod.POST)
 	public int idCheck(@RequestParam("userId") String userId) {
 		int result = 0;
 		try {
 			MemberVO member = memberService.idCheck(userId);
-			if(member != null) {
+			if (member != null) {
 				result = 1;
 			}
 		} catch (Exception e) {

@@ -73,41 +73,49 @@ public class AdminDAOImpl implements AdminDAO{
 		// TODO Auto-generated method stub
 		return sqlsession.selectOne(namespace + ".listCount");
 	}
+	//주문목록
 	@Override
 	public List<OrderVO> orderList(String delivery) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlsession.selectList(namespace + ".orderList",delivery);
 	}
+	//주문상세
 	@Override
 	public List<OrderListVO> orderView(OrderVO order) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlsession.selectList(namespace + ".orderView", order);
 	}
+	//배송현황바꾸기
 	@Override
 	public void delivery(OrderVO order) throws Exception {
 		// TODO Auto-generated method stub
 		sqlsession.update(namespace + ".delivery", order);
 	}
+	//주문 시 수량 감소
 	@Override
 	public void changeStock(GoodsVO goods) throws Exception {
 		// TODO Auto-generated method stub
 		sqlsession.update(namespace+".changeStock",goods);
 	}
+	//리뷰 리스트
 	@Override
 	public List<ReplyListVO> allReply() throws Exception {
 		// TODO Auto-generated method stub
 		return sqlsession.selectList(namespace + ".allReply");
 	}
+	//리뷰 삭제
 	@Override
 	public void deleteReply(int repNum) throws Exception {
 		// TODO Auto-generated method stub
 		sqlsession.delete(namespace + ".deleteReply", repNum);
 	}
+	//최근 1주일 매출
 	@Override
 	public List<OrderVO> sales() throws Exception {
 		// TODO Auto-generated method stub
 		return sqlsession.selectList(namespace + ".sales");
 	}
+	//상품별 구매 현황
 	@Override
 	public List<OrderDetailVO> goods() throws Exception {
 		// TODO Auto-generated method stub

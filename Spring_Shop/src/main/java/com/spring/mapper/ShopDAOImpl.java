@@ -63,75 +63,87 @@ public class ShopDAOImpl implements ShopDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(namespace + ".replyList", gdsNum);
 	}
-	//리뷰 삭제
+
+	// 리뷰 삭제
 	@Override
 	public void deleteReply(ReplyVO reply) throws Exception {
 		// TODO Auto-generated method stub
 		sqlSession.delete(namespace + ".deleteReply", reply);
 	}
-	//아이디 체크
+
+	// 아이디 체크
 	@Override
 	public String idCheck(int repNum) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace + ".replyUserIdCheck", repNum);
 	}
-	//리뷰 수정
+
+	// 리뷰 수정
 	@Override
 	public void modifyReply(ReplyVO reply) throws Exception {
 		// TODO Auto-generated method stub
 		sqlSession.update(namespace + ".modifyReply", reply);
 	}
-	//카트담기
+
+	// 카트담기
 	@Override
 	public void addCart(CartVO cart) throws Exception {
 		// TODO Auto-generated method stub
 		sqlSession.insert(namespace + ".addCart", cart);
 	}
-	//카트리스트
+
+	// 카트리스트
 	@Override
 	public List<CartListVO> cartList(String userId) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(namespace + ".cartList", userId);
 	}
-	//카트 삭제
+
+	// 카트 삭제
 	@Override
 	public void deleteCart(CartVO cart) throws Exception {
 		// TODO Auto-generated method stub
 		sqlSession.delete(namespace + ".deleteCart", cart);
 	}
-	//주문 정보
+
+	// 주문 정보
 	@Override
 	public void orderInfo(OrderVO order) throws Exception {
 		// TODO Auto-generated method stub
 		sqlSession.insert(namespace + ".orderInfo", order);
 	}
-	//주문 상세 정보
+
+	// 주문 상세 정보
 	@Override
 	public void orderInfo_Details(OrderDetailVO orderDetail) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 		sqlSession.insert(namespace + ".orderInfo_Details", orderDetail);
 	}
-	//카트 비우기
+
+	// 카트 비우기
 	@Override
 	public void cartAllDelete(String userId) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 		sqlSession.delete(namespace + ".cartAllDelete", userId);
 	}
-	//주문목록
+
+	// 주문목록
 	@Override
 	public List<OrderVO> orderList(OrderVO order) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(namespace + ".orderList", order);
 	}
-	//특정 주문 목록 (3개 테이블 join)
+
+	// 특정 주문 목록 (3개 테이블 join)
 	@Override
 	public List<OrderListVO> orderView(OrderVO order) throws Exception {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(namespace + ".orderView", order);
 	}
 
+	// 사용자 정보 가져오기
 	@Override
 	public List<MemberVO> memberInfo(String userId) throws Exception {
 		// TODO Auto-generated method stub

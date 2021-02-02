@@ -53,9 +53,11 @@ public interface AdminDAO {
 
 	// 리뷰 삭제
 	public void deleteReply(int repNum) throws Exception;
-	//매출현황
+
+	// 매출현황
 	public List<OrderVO> sales() throws Exception;
-	//상품별 매출 현황
+
+	// 상품별 매출 현황
 	public List<OrderDetailVO> goods() throws Exception;
 
 }

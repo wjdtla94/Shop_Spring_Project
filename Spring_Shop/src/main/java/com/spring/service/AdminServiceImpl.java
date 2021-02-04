@@ -133,4 +133,10 @@ public class AdminServiceImpl implements AdminService {
 		return dao.goods();
 	}
 
+	@Override
+	public List<GoodsVO> stock() throws Exception {
+		// TODO Auto-generated method stub
+		return dao.stock();
+	}
+
 }

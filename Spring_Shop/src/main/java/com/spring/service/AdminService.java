@@ -60,4 +60,6 @@ public interface AdminService {
 	// 상품별 매출 현황
 	public List<OrderDetailVO> goods() throws Exception;
 
+	// 제고
+	public List<GoodsVO> stock() throws Exception;
 }

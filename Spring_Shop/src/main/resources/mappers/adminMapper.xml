@@ -115,15 +115,21 @@
 	<delete id="deleteReply">
 		delete from tbl_reply where repNum = #{repNum}
 	</delete>
-	<!-- 매출현황 -->
+	<!-- 최근 1주일 매출현황 -->
 	<select id="sales" resultType="com.spring.model.OrderVO">
 		select sum(amount) as amount,
-		date_format(orderDate, '%m-%d') as orderDate from tbl_order group by
+		date_format(orderDate, '%m-%d') as orderDate from tbl_order where
+		orderDate between date_add(now(),interval -1 week)and now() group by
 		date_format(orderDate, '%m-%d') order by orderDate
 	</select>
 	<!-- 상품별 매출현황 -->
 	<select id="goods" resultType="com.spring.model.OrderDetailVO">
 		select count(*) as count, gdsName
 		from tbl_order_details group by gdsName order by count desc
+	</select>
+	<!-- 제고 -->
+	<select id="stock" resultType="com.spring.model.GoodsVO">
+	select gdsStock, gdsName from tbl_goods order by gdsStock desc
+	
 	</select>
 </mapper>

@@ -290,6 +290,13 @@ public class AdminController {
 		List<OrderDetailVO> goods = adminService.goods();
 		return goods;
 	}
+	// 상품별 매출현황
+	@ResponseBody
+	@RequestMapping(value = "/shop/productList", method = RequestMethod.GET)
+	public List<GoodsVO> productList(Model model) throws Exception {
+		List<GoodsVO> stock = adminService.stock();
+		return stock;
+	}
 	//매출관리페이지
 	@RequestMapping(value = "/shop/sales", method = RequestMethod.GET)
 	public void getSales() throws Exception {

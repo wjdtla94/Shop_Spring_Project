@@ -63,7 +63,7 @@
                                 <ul class="dropdown">
                                     <li><a href="#" class = "sales_btn">최근 1주일 매출</a></li>
                                     <li><a href="#" class = "goods_btn">상품별 구매 현황</a></li>
-                                    <li><a href="#">많이주문한 고객</a></li>
+                                    <li><a href="#"class ="product_btn">상품 재고 </a></li>
                                 </ul>
                             </nav>
 						<script>
@@ -200,7 +200,88 @@
 
 			var ctx = document.getElementById("canvas").getContext("2d");
 
-			var myChart = new Chart(ctx, {
+			var myBar = new Chart(ctx, {
+				type : 'horizontalBar',
+				data : lineChartData,
+
+				options : {
+
+					scales : {
+
+						xAxes : [ {
+
+							ticks : {
+								
+								beginAtZero: true
+
+
+							}
+
+						} ]
+
+					}
+
+				}
+
+			})
+
+		}
+		});
+	</script>
+	<script type="text/javascript">
+	$(".product_btn").click(function() {
+		var chartLabels = [];
+
+		var chartData = [];
+		$.getJSON("/admin/shop/productList", function(data) {
+
+			$(data).each(function() {
+
+				chartLabels.push(this.gdsName);
+
+				chartData.push(this.gdsStock);
+
+			});
+
+			createChart();
+
+
+		});
+
+		var lineChartData = {
+
+			labels : chartLabels,
+
+			datasets : [
+
+			{
+
+				label : "재고",
+
+				fillColor : "rbga(151,187,205,0.2)",
+				strokeColor : "rbga(151,187,205,1)",
+
+				pointColor : "rbga(151,187,205,1)",
+
+				pointStrokeColor : "#fff",
+
+				pointHighlightFill : "#fff",
+
+				pointHighlightStroke : "rbga(151,187,205,1)",
+
+				data : chartData
+
+			}
+
+			]
+
+		}
+
+		function createChart() {
+
+			var ctx = document.getElementById("canvas").getContext("2d");
+
+			var myBar2 = new Chart(ctx, {
 				type : 'horizontalBar',
 				data : lineChartData,
 

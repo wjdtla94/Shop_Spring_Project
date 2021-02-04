@@ -121,5 +121,11 @@ public class AdminDAOImpl implements AdminDAO{
 		// TODO Auto-generated method stub
 		return sqlsession.selectList(namespace + ".goods");
 	}
+	//제고
+	@Override
+	public List<GoodsVO> stock() throws Exception {
+		// TODO Auto-generated method stub
+		return sqlsession.selectList(namespace + ".stock");
+	}
 
 }

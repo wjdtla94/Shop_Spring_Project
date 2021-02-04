@@ -100,6 +100,7 @@ textarea#gdsDes {
 							<script>
 
 								var ckeditor_config = {
+										height : 600,
 									resize_enaleb : false,
 									enterMode : CKEDITOR.ENTER_BR,
 									shiftEnterMode : CKEDITOR.ENTER_P,

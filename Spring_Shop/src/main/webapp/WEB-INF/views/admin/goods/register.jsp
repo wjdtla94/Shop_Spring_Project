@@ -33,7 +33,6 @@ input {
 
 textarea#gdsDes {
 	width: 400px;
-	height: 180px;
 }
 </style>
 
@@ -100,6 +99,7 @@ textarea#gdsDes {
 							<textarea rows="5" cols="50" id="gdsDes" name="gdsDes"></textarea>
 							<script>
 								var ckeditor_config = {
+										height : 600,
 									resize_enaleb : false,
 									enterMode : CKEDITOR.ENTER_BR,
 									shiftEnterMode : CKEDITOR.ENTER_P,
